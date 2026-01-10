@@ -31,6 +31,10 @@ float mMobil = 0.06;
 float rAyunan = 0.0;
 float kAyunan = 1.5f;
 
+// Variabel kincir angin
+float rotKincir = 0.0f;
+float speedKincir = 2.0f;
+
 // CUACA
 
 void cuaca_siang(){
@@ -1142,6 +1146,90 @@ void peletakan_kursi(){
         kursi();
     glPopMatrix();
 }
+void kincir_angin() {
+
+    // Tiang Kincir
+    glPushMatrix();
+        glColor3f(0.3f, 0.6f, 1.0f);
+        glTranslatef(0, -6, 0);
+        glRotatef(-90, 1, 0, 0);
+        glutSolidCylinder(0.1, 2.0, 32, 1.0);
+    glPopMatrix();
+
+    // Kepala Kincir
+    glPushMatrix();
+        glColor3f(1.0f, 0.0f, 1.0f);
+        glTranslatef(0, -4, 0);
+        glutSolidSphere(0.2, 5.0, 5.0);
+    glPopMatrix();
+
+    // Baling-baling
+	glPushMatrix();
+    	glTranslatef(0, -4, 0);                // posisi pusat kincir
+    	glRotatef(rotKincir, 0, 0, 1);        // rotasi animasi
+    	glColor3f(1.0f, 1.0f, 0.0f);
+    for (int i = 0; i < 4; i++) {
+        glPushMatrix();
+            glRotatef(i * 90, 0, 0, 1);   
+            glTranslatef(0.4, 0, 0.1);      // geser dari pusat
+            glScalef(0.6f, 0.2f, 0.1f);    // bentuk baling-baling
+            glutSolidCube(1);
+            rotKincir += 0.7f;   // kecepatan putaran
+    		if (rotKincir >= 360) rotKincir -= 360;
+    		glutPostRedisplay();
+        glPopMatrix();
+    }
+	glPopMatrix();
+
+}
+// peletakan kincir
+void peletakan1_kincir() {
+    glPushMatrix();
+        glTranslatef(8.0f, 4.0f, -8.0f);
+        glScalef(0.6f, 0.6f, 0.6f);
+        kincir_angin();
+    glPopMatrix();
+}
+
+void peletakan2_kincir() {
+    glPushMatrix();
+        glTranslatef(8.0f, 4.0f, 7.0f);
+        glScalef(0.6f, 0.6f, 0.6f);
+        kincir_angin();
+    glPopMatrix();
+}
+
+void peletakan3_kincir() {
+    glPushMatrix();
+        glTranslatef(9.0f, 4.0f, 9.0f);
+        glScalef(0.6f, 0.6f, 0.6f);
+        kincir_angin();
+    glPopMatrix();
+}
+
+void peletakan4_kincir() {
+    glPushMatrix();
+        glTranslatef(7.0f, 4.0f, 9.0f);
+        glScalef(0.6f, 0.6f, 0.6f);
+        kincir_angin();
+    glPopMatrix();
+}
+
+void peletakan5_kincir() {
+    glPushMatrix();
+        glTranslatef(9.0f, 4.0f, -10.0f);
+        glScalef(0.6f, 0.6f, 0.6f);
+        kincir_angin();
+    glPopMatrix();
+}
+
+void peletakan6_kincir() {
+    glPushMatrix();
+        glTranslatef(7.0f, 4.0f, -10.0f);
+        glScalef(0.6f, 0.6f, 0.6f);
+        kincir_angin();
+    glPopMatrix();
+}
 // ==================    2406018 Hilma Putri      ================== //
 
 // ==================   2406011 Assyifa Ramdani   ================== //
@@ -1233,7 +1321,7 @@ void display() {
         0, 1, 0
     );
     // PEMANGGILAN FUNGSI OBJEK
-    kunang_kunang(); tempat_sampah(); batu(); semak(); full_jalan(); peletakan_lampu(); tanah(); peletakan_gapura(); peletakan_kolam(); peletakan_pohon(); peletakan_jungkat();peletakan_kursi(); peletakan_awan(); peletakan_mobil(); peletakan_ayunan();peletakan_ikan();
+    peletakan1_kincir(); peletakan2_kincir(); peletakan3_kincir(); peletakan4_kincir(); peletakan5_kincir(); peletakan6_kincir(); kunang_kunang(); tempat_sampah(); batu(); semak(); full_jalan(); peletakan_lampu(); tanah(); peletakan_gapura(); peletakan_kolam(); peletakan_pohon(); peletakan_jungkat();peletakan_kursi(); peletakan_awan(); peletakan_mobil(); peletakan_ayunan();peletakan_ikan();
 
     glutSwapBuffers();
 }
@@ -1347,3 +1435,4 @@ int main(int argc, char** argv) {
     glutMainLoop();
     return 0;
 }
+
