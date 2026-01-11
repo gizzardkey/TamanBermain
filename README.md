@@ -4,7 +4,7 @@ Simulasi **taman bermain 3D** menggunakan **OpenGL (FreeGLUT)**. Scene menampilk
 
 ## Demo
 <p align="center">
-  <img src="docs/demo.gif" alt="Demo Taman Bermain" width="520">
+  <img src="docs/demo.gif" alt="Demo Taman Bermain" width="720">
 </p>
 
 ## Fitur Utama
