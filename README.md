@@ -3,7 +3,9 @@
 Simulasi **taman bermain 3D** menggunakan **OpenGL (FreeGLUT)**. Scene menampilkan beberapa objek (pohon, kolam, lampu, semak, gapura, jalan, kursi, ayunan, jungkat-jungkit, kincir angin, awan, mobil, ikan, dll) dengan beberapa animasi serta kontrol kamera dan cuaca melalui keyboard.
 
 ## Demo
-![Demo Taman Bermain](docs/demo.gif)
+<p align="center">
+  <img src="docs/demo.gif" alt="Demo Taman Bermain" width="520">
+</p>
 
 ## Fitur Utama
 - **3 mode cuaca**: siang, sore, malam (mengubah background dan parameter lighting).
