@@ -44,3 +44,7 @@ Simulasi **taman bermain 3D** menggunakan **OpenGL (FreeGLUT)**. Scene menampilk
 2. `2406034` Rizal Septiazi
 3. `2406018` Hilma Putri
 4. `2406011` Assyifa Ramdani
+
+![OpenGL](https://img.shields.io/badge/OpenGL-FreeGLUT-blue)
+![Bahasa](https://img.shields.io/badge/Language-C%2B%2B-orange)
+![Tugas](https://img.shields.io/badge/Status-Academic%20Project-green)
