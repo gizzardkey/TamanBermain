@@ -41,7 +41,7 @@ Simulasi **taman bermain 3D** menggunakan **OpenGL (FreeGLUT)**. Scene menampilk
 - `m` : Gerakkan mobil (maju-mundur pada rentang tertentu)
 - `k` : Ayunan (berayun, otomatis balik arah pada batas sudut)
 
-### Kontributor Kelompok 1
+## Kontributor Kelompok 1
 1. `2406007` Sayyid Dzaky Farhan
 2. `2406034` Rizal Septiazi
 3. `2406018` Hilma Putri
