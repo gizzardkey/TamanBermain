@@ -1,3 +1,4 @@
+
 // ---------------------------------- library
 #include <GL/freeglut.h>
 #include <cmath>
@@ -7,6 +8,8 @@
 float kameraX = 0.0f;
 float kameraY = 15.0f;
 float kameraZ = 25.0f;
+
+float zoom = 1.0f;
 
 // Variabel rotasi papan
 float rotPapan = 0.0f;
@@ -88,31 +91,44 @@ void cuaca_sore() {
 
 // KONTROL KAMERA
 void kamera_1(){
-    kameraX = 0.0f;
-    kameraY = 15.0f;
-    kameraZ = 25.0f;
+    kameraX = 0.0f * zoom;
+    kameraY = 15.0f * zoom;
+    kameraZ = 25.0f * zoom;
 }
 
 void kamera_2(){
     // Kamera 2
-    kameraX = -25.0f;
-    kameraY = 15.0f;
-    kameraZ = 0.0f;
+    kameraX = -25.0f * zoom;
+    kameraY = 15.0f * zoom;
+    kameraZ = 0.0f * zoom;
 }
 
 void kamera_3(){
     // Kamera 3
-    kameraX = 25.0f;
-    kameraY = 15.0f;
-    kameraZ = 0.0f;
+    kameraX = 25.0f * zoom;
+    kameraY = 15.0f * zoom;
+    kameraZ = 0.0f * zoom;
 }
 
 void kamera_4(){
     // Kamera 4
-    kameraX = 0.0f;
-    kameraY = 15.0f;
-    kameraZ = -25.0f;
+    kameraX = 0.0f * zoom;
+    kameraY = 15.0f * zoom;
+    kameraZ = -25.0f * zoom;
 }
+void zoomIn() {
+    if (zoom > 0.1f) { 
+        zoom -= 0.05f; 
+    }
+}
+
+void zoomOut() {
+    if (zoom < 3.0f) { // Batasi maksimal menjauh
+        zoom += 0.05f; 
+    }
+}
+
+void (*kameraSekarang)() = kamera_1;
 
 // =========================== AKSESORIS ===========================
 void kunang_kunang (){
@@ -1314,7 +1330,8 @@ void peletakan_ayunan(){
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-
+	
+	kameraSekarang();
     gluLookAt(
         kameraX, kameraY, kameraZ,
         0, 0, 0,
@@ -1346,7 +1363,7 @@ void reshape(int w, int h) {
 
 // FUNGSI KEYBOARD
 void keyboard(unsigned char key, int x, int y) {
-
+	
     switch (key) {
         case '1':
             cuaca_siang();
@@ -1392,29 +1409,25 @@ void keyboard(unsigned char key, int x, int y) {
             if (rAyunan < -30.0f) kAyunan = 1.5;   // minimal
             break;
         case 'a':
-            kamera_2();
-            break;
+            kameraSekarang = kamera_2; 
+			break;
         case 's':
-            kamera_1();
-            break;
+            kameraSekarang = kamera_1; 
+			break;
         case 'w':
-            kamera_4();
-            break;
+            kameraSekarang = kamera_4; 
+			break;
         case 'd':
-            kamera_3();
+            kameraSekarang = kamera_3; 
+			break;
+		case '=':
+            zoomIn();
             break;
-        case '=': // Zoom In
-            kameraX -= 1.0f;
-            kameraY -= 1.0f;
-            kameraZ -= 1.0f;
+        case '-':
+            zoomOut();
             break;
-        case '-': // Zoom Out
-            kameraX += 1.0f;
-            kameraY += 1.0f;
-            kameraZ += 1.0f;
-            break;
+    
     }
-
     glutPostRedisplay();
 }
 
