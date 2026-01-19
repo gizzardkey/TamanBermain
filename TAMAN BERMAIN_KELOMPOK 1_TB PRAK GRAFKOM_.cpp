@@ -4,7 +4,7 @@
 #include <cmath>
 #include <iostream>
 
-// Kamera 1
+// Kamera Utama
 float kameraX = 0.0f;
 float kameraY = 15.0f;
 float kameraZ = 25.0f;
@@ -18,7 +18,7 @@ int arah = 1;
 
 // Variabel Skalasi Awan
 float sAwan = 1.0f;   // skala awal NORMAL
-float bAwan = 0.06f;  // scaling
+float bAwan = 0.02f;  // scaling
 
 //Variabel Translasi Lauk
 float tIkan = 0.0f;
@@ -27,7 +27,7 @@ float tIkanY = 0.0f;  // Posisi tinggi ikan
 float mIkanY = 0.05f; // Kecepatan gerak ke atas
 
 // Variabel Translasi Mobil
-float tMobil = 10.8f;
+float tMobil = 11.0;
 float mMobil = 0.2f;
 
 // Variabel Rotasi Ayunan
@@ -1391,12 +1391,14 @@ void keyboard(unsigned char key, int x, int y) {
     		if (tIkanY < 0.0f) tIkanY = 0.0f; // Batas dasar kolam
     		break;
         case 'o':
-            sAwan += bAwan;
-            if (sAwan > 1.5f || sAwan < 0.8f) bAwan = -bAwan; // balik arah
+            sAwan = sAwan + bAwan;
+            if (sAwan > 1.5f || sAwan < 0.8f)
+            bAwan = -bAwan; // balik arah
             break;
         case 'm':
-            tMobil += mMobil;
-            if (tMobil > 11.0f || tMobil < -11.0f) mMobil = -mMobil;
+            tMobil = tMobil + mMobil;
+            if (tMobil > 11.0f || tMobil < -11.0f)
+            mMobil = -mMobil;
             break;
         case 'k':
             rAyunan += kAyunan;
