@@ -2,6 +2,11 @@
 
 Simulasi **taman bermain 3D** menggunakan **OpenGL (FreeGLUT)**. Scene menampilkan beberapa objek (pohon, kolam, lampu, semak, gapura, jalan, kursi, ayunan, jungkat-jungkit, kincir angin, awan, mobil, ikan, dll) dengan beberapa animasi serta kontrol kamera dan cuaca melalui keyboard.
 
+## Demo
+<p align="center">
+  <img src="docs/demo.gif" alt="Demo Taman Bermain" width="720">
+</p>
+
 ## Fitur Utama
 - **3 mode cuaca**: siang, sore, malam (mengubah background dan parameter lighting).
 - **Kontrol kamera**: berpindah sudut pandang (depan/kiri/kanan/belakang) dan zoom in/out.
@@ -35,3 +40,16 @@ Simulasi **taman bermain 3D** menggunakan **OpenGL (FreeGLUT)**. Scene menampilk
 - `o` : Skala awan (besar-kecil pada rentang tertentu)
 - `m` : Gerakkan mobil (maju-mundur pada rentang tertentu)
 - `k` : Ayunan (berayun, otomatis balik arah pada batas sudut)
+
+## Kontributor Kelompok 1
+1. `2406007` Sayyid Dzaky Farhan
+2. `2406034` Rizal Septiazi
+3. `2406018` Hilma Putri
+4. `2406011` Assyifa Ramdani
+
+**Mata Kuliah**: Grafika Komputer  
+**Program Studi**: Teknik Informatika | Institut Teknologi Garut | 2026
+
+![OpenGL](https://img.shields.io/badge/OpenGL-FreeGLUT-blue)
+![Bahasa](https://img.shields.io/badge/Language-C%2B%2B-orange)
+![Tugas](https://img.shields.io/badge/Status-Academic%20Project-green)

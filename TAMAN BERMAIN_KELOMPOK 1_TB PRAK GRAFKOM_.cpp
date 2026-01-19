@@ -1,3 +1,4 @@
+
 // ---------------------------------- library
 #include <GL/freeglut.h>
 #include <cmath>
@@ -8,6 +9,8 @@ float kameraX = 0.0f;
 float kameraY = 15.0f;
 float kameraZ = 25.0f;
 
+float zoom = 1.0f;
+
 // Variabel rotasi papan
 float rotPapan = 0.0f;
 float rotateSpeed = 3.0f;
@@ -17,15 +20,15 @@ int arah = 1;
 float sAwan = 1.0f;   // skala awal NORMAL
 float bAwan = 0.06f;  // scaling
 
-// Variabel Translasi Mobil
-float tMobil = 10.8f;
-float mMobil = 0.2f;
-
 //Variabel Translasi Lauk
 float tIkan = 0.0f;
 float mIkan = 0.3f; // Kecepatan gerak ikan
 float tIkanY = 0.0f;  // Posisi tinggi ikan
 float mIkanY = 0.05f; // Kecepatan gerak ke atas
+
+// Variabel Translasi Mobil
+float tMobil = 1.0;
+float mMobil = 0.06;
 
 // Variabel Rotasi Ayunan
 float rAyunan = 0.0;
@@ -88,31 +91,44 @@ void cuaca_sore() {
 
 // KONTROL KAMERA
 void kamera_1(){
-    kameraX = 0.0f;
-    kameraY = 15.0f;
-    kameraZ = 25.0f;
+    kameraX = 0.0f * zoom;
+    kameraY = 15.0f * zoom;
+    kameraZ = 25.0f * zoom;
 }
 
 void kamera_2(){
     // Kamera 2
-    kameraX = -25.0f;
-    kameraY = 15.0f;
-    kameraZ = 0.0f;
+    kameraX = -25.0f * zoom;
+    kameraY = 15.0f * zoom;
+    kameraZ = 0.0f * zoom;
 }
 
 void kamera_3(){
     // Kamera 3
-    kameraX = 25.0f;
-    kameraY = 15.0f;
-    kameraZ = 0.0f;
+    kameraX = 25.0f * zoom;
+    kameraY = 15.0f * zoom;
+    kameraZ = 0.0f * zoom;
 }
 
 void kamera_4(){
     // Kamera 4
-    kameraX = 0.0f;
-    kameraY = 15.0f;
-    kameraZ = -25.0f;
+    kameraX = 0.0f * zoom;
+    kameraY = 15.0f * zoom;
+    kameraZ = -25.0f * zoom;
 }
+void zoomIn() {
+    if (zoom > 0.1f) { 
+        zoom -= 0.05f; 
+    }
+}
+
+void zoomOut() {
+    if (zoom < 3.0f) { // Batasi maksimal menjauh
+        zoom += 0.05f; 
+    }
+}
+
+void (*kameraSekarang)() = kamera_1;
 
 // =========================== AKSESORIS ===========================
 void kunang_kunang (){
@@ -652,7 +668,7 @@ void semak() {
 // ================== 2406007 Sayyid Dzaky Farhan ================== //
 void lampu(){
     // Bola Lampu
-    glDisable(GL_LIGHTING);
+    glDisable(GL_LIGHTING); 
     glPushMatrix();
         glColor3f(1, 0.984, 0);
         glTranslatef(0, 3, 0);
@@ -789,14 +805,14 @@ void mobil(){
 }
 
 void peletakan_mobil(){
-    // glPushMatrix();
-    // glTranslatef(0,0,tMobil);
     glPushMatrix();
-        glTranslatef(0,1,tMobil);
+    glTranslatef(0,0,tMobil);
+    glPushMatrix();
+        glTranslatef(0,1,9);
         glScalef(0.4,0.4,0.4);
         mobil();
     glPopMatrix();
-    // glPopMatrix();
+    glPopMatrix();
 }
 // ================== 2406007 Sayyid Dzaky Farhan ================== //
 
@@ -1314,7 +1330,8 @@ void peletakan_ayunan(){
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-
+	
+	kameraSekarang();
     gluLookAt(
         kameraX, kameraY, kameraZ,
         0, 0, 0,
@@ -1333,7 +1350,7 @@ void init() {
     glEnable(GL_NORMALIZE);
 }
 
-//RESHAPE JENDELA
+// RESHAPE JENDELA
 void reshape(int w, int h) {
     if (h == 0) h = 1;
 
@@ -1346,7 +1363,7 @@ void reshape(int w, int h) {
 
 // FUNGSI KEYBOARD
 void keyboard(unsigned char key, int x, int y) {
-
+	
     switch (key) {
         case '1':
             cuaca_siang();
@@ -1378,11 +1395,13 @@ void keyboard(unsigned char key, int x, int y) {
     		break;
         case 'o':
             sAwan += bAwan;
-            if (sAwan > 1.5f || sAwan < 0.8f) bAwan = -bAwan; // balik arah
+            if (sAwan > 1.5f) sAwan = -1;  // maksimal
+            if (sAwan < 0.8f) sAwan = 1;   // minimal
             break;
         case 'm':
             tMobil += mMobil;
-            if (tMobil > 11.0f || tMobil < -11.0f) mMobil = -mMobil;
+            if (tMobil > 1.0f) mMobil = -0.8;
+            if (tMobil < -20.0f) mMobil = 0.8;
             break;
         case 'k':
             rAyunan += kAyunan;
@@ -1390,29 +1409,25 @@ void keyboard(unsigned char key, int x, int y) {
             if (rAyunan < -30.0f) kAyunan = 1.5;   // minimal
             break;
         case 'a':
-            kamera_2();
-            break;
+            kameraSekarang = kamera_2; 
+			break;
         case 's':
-            kamera_1();
-            break;
+            kameraSekarang = kamera_1; 
+			break;
         case 'w':
-            kamera_4();
-            break;
+            kameraSekarang = kamera_4; 
+			break;
         case 'd':
-            kamera_3();
+            kameraSekarang = kamera_3; 
+			break;
+		case '=':
+            zoomIn();
             break;
-        case '=': // Zoom In
-            kameraX -= 0.0f;
-            kameraY -= 1.0f;
-            kameraZ -= 1.0f;
+        case '-':
+            zoomOut();
             break;
-        case '-': // Zoom Out
-            kameraX += 0.0f;
-            kameraY += 1.0f;
-            kameraZ += 1.0f;
-            break;
+    
     }
-
     glutPostRedisplay();
 }
 
@@ -1433,4 +1448,3 @@ int main(int argc, char** argv) {
     glutMainLoop();
     return 0;
 }
-
