@@ -17,15 +17,15 @@ int arah = 1;
 float sAwan = 1.0f;   // skala awal NORMAL
 float bAwan = 0.06f;  // scaling
 
+// Variabel Translasi Mobil
+float tMobil = 10.8f;
+float mMobil = 0.2f;
+
 //Variabel Translasi Lauk
 float tIkan = 0.0f;
 float mIkan = 0.3f; // Kecepatan gerak ikan
 float tIkanY = 0.0f;  // Posisi tinggi ikan
 float mIkanY = 0.05f; // Kecepatan gerak ke atas
-
-// Variabel Translasi Mobil
-float tMobil = 1.0;
-float mMobil = 0.06;
 
 // Variabel Rotasi Ayunan
 float rAyunan = 0.0;
@@ -652,7 +652,7 @@ void semak() {
 // ================== 2406007 Sayyid Dzaky Farhan ================== //
 void lampu(){
     // Bola Lampu
-    glDisable(GL_LIGHTING); 
+    glDisable(GL_LIGHTING);
     glPushMatrix();
         glColor3f(1, 0.984, 0);
         glTranslatef(0, 3, 0);
@@ -789,14 +789,14 @@ void mobil(){
 }
 
 void peletakan_mobil(){
+    // glPushMatrix();
+    // glTranslatef(0,0,tMobil);
     glPushMatrix();
-    glTranslatef(0,0,tMobil);
-    glPushMatrix();
-        glTranslatef(0,1,9);
+        glTranslatef(0,1,tMobil);
         glScalef(0.4,0.4,0.4);
         mobil();
     glPopMatrix();
-    glPopMatrix();
+    // glPopMatrix();
 }
 // ================== 2406007 Sayyid Dzaky Farhan ================== //
 
@@ -1333,7 +1333,7 @@ void init() {
     glEnable(GL_NORMALIZE);
 }
 
-// RESHAPE JENDELA
+//RESHAPE JENDELA
 void reshape(int w, int h) {
     if (h == 0) h = 1;
 
@@ -1378,13 +1378,11 @@ void keyboard(unsigned char key, int x, int y) {
     		break;
         case 'o':
             sAwan += bAwan;
-            if (sAwan > 1.5f) sAwan = -1;  // maksimal
-            if (sAwan < 0.8f) sAwan = 1;   // minimal
+            if (sAwan > 1.5f || sAwan < 0.8f) bAwan = -bAwan; // balik arah
             break;
         case 'm':
             tMobil += mMobil;
-            if (tMobil > 1.0f) mMobil = -0.8;
-            if (tMobil < -20.0f) mMobil = 0.8;
+            if (tMobil > 11.0f || tMobil < -11.0f) mMobil = -mMobil;
             break;
         case 'k':
             rAyunan += kAyunan;
@@ -1404,12 +1402,12 @@ void keyboard(unsigned char key, int x, int y) {
             kamera_3();
             break;
         case '=': // Zoom In
-            kameraX -= 1.0f;
+            kameraX -= 0.0f;
             kameraY -= 1.0f;
             kameraZ -= 1.0f;
             break;
         case '-': // Zoom Out
-            kameraX += 1.0f;
+            kameraX += 0.0f;
             kameraY += 1.0f;
             kameraZ += 1.0f;
             break;
