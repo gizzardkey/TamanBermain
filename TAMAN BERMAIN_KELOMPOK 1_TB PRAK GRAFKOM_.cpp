@@ -27,8 +27,8 @@ float tIkanY = 0.0f;  // Posisi tinggi ikan
 float mIkanY = 0.05f; // Kecepatan gerak ke atas
 
 // Variabel Translasi Mobil
-float tMobil = 1.0;
-float mMobil = 0.06;
+float tMobil = 10.8f;
+float mMobil = 0.2f;
 
 // Variabel Rotasi Ayunan
 float rAyunan = 0.0;
@@ -806,12 +806,9 @@ void mobil(){
 
 void peletakan_mobil(){
     glPushMatrix();
-    glTranslatef(0,0,tMobil);
-    glPushMatrix();
-        glTranslatef(0,1,9);
+        glTranslatef(0,1,tMobil);
         glScalef(0.4,0.4,0.4);
         mobil();
-    glPopMatrix();
     glPopMatrix();
 }
 // ================== 2406007 Sayyid Dzaky Farhan ================== //
@@ -1395,13 +1392,11 @@ void keyboard(unsigned char key, int x, int y) {
     		break;
         case 'o':
             sAwan += bAwan;
-            if (sAwan > 1.5f) sAwan = -1;  // maksimal
-            if (sAwan < 0.8f) sAwan = 1;   // minimal
+            if (sAwan > 1.5f || sAwan < 0.8f) bAwan = -bAwan; // balik arah
             break;
         case 'm':
             tMobil += mMobil;
-            if (tMobil > 1.0f) mMobil = -0.8;
-            if (tMobil < -20.0f) mMobil = 0.8;
+            if (tMobil > 11.0f || tMobil < -11.0f) mMobil = -mMobil;
             break;
         case 'k':
             rAyunan += kAyunan;
